@@ -17,38 +17,22 @@ var rollbar = new Rollbar({
 rollbar.log("Hello world!");
 
 // //Middleware
-// app.use("/", express.static(path.join(__dirname, "/public/")));
+app.use("/styles", express.static(path.join(__dirname, "/public/index.css")));
+app.use("/js", express.static(path.join(__dirname, "/public/index.js")));
 
 //Endpoints
 
-app.get("/js", function (req, res) {
-  rollbar.info("Nice Game");
-  res.sendFile(path.join(__dirname, "public/index.js"));
-});
-
 app.get("/", function (req, res) {
   rollbar.info("Nice HTML");
-  res.sendFile(path.join(__dirname, "public/index.html"));
-});
-
-app.get("/styles", function (req, res) {
-  rollbar.info("CSS is working nice");
-  rollbar.info("Game is coOl.");
-  res.sendFile(path.join(__dirname, "public/index.css"));
-});
-
-app.get("/test", (req, res) => {
-  try {
-    fakefunk();
-  } catch (error) {
-    rollbar.error(error);
-  }
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 app.get("/api/robots", (req, res) => {
   try {
+    rollbar.info("Hit all robot");
     res.status(200).send(botsArr);
   } catch (error) {
+    rollbar.info("Nice Game");
     console.log("ERROR GETTING BOTS", error);
     res.sendStatus(400);
   }
@@ -56,6 +40,7 @@ app.get("/api/robots", (req, res) => {
 
 app.get("/api/robots/five", (req, res) => {
   try {
+    rollbar.info("CSS is working nice");
     let shuffled = shuffleArray(bots);
     let choices = shuffled.slice(0, 5);
     let compDuo = shuffled.slice(6, 8);
