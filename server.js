@@ -22,15 +22,27 @@ rollbar.log("Hello world!");
 //Endpoints
 
 app.get("/js", function (req, res) {
+  rollbar.info("Nice Game");
   res.sendFile(path.join(__dirname, "public/index.js"));
 });
 
 app.get("/", function (req, res) {
+  rollbar.info("Nice HTML");
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
 app.get("/styles", function (req, res) {
+  rollbar.info("CSS is working nice");
+  rollbar.info("Game is coOl.");
   res.sendFile(path.join(__dirname, "public/index.css"));
+});
+
+app.get("/test", (req, res) => {
+  try {
+    fakefunk();
+  } catch (error) {
+    rollbar.error(error);
+  }
 });
 
 app.get("/api/robots", (req, res) => {
