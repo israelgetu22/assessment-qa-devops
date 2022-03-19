@@ -18,26 +18,28 @@ test("Title shows up when page loads", async () => {
   expect(displayed).toBe(true);
 });
 
-// test("Draw button displays", async () => {
-//   const title = await driver.findElement(By.id("choices"));
-//   const displayed = await title.isDisplayed();
-
-//   expect(displayed).toBe(true);
-//   await driver.sleep(5000);
-// });
-
-test(" “Add to Duo”  ALLbutton displays", async () => {
-  const allBtn = await driver.findElement(By.id("see-all"));
+test(" ALLbutton is Clicked", async () => {
+  let allBtn = await driver.findElement(By.id("see-all"));
   await allBtn.click();
+
+  let displayedBot = await driver.findElement(
+    By.xpath('(//div[@id="all-bots"]/div[@class="bot-card outline"])[1]')
+  );
+  const displayed = await displayedBot.isDisplayed();
+  expect(displayed).toBe(true);
   await driver.sleep(5000);
 });
 
-//let displayedBot = await driver.findElement(By.xpath('(//div[@id="all-bots"]/div[@class="bot-card outline"])[1]'))
+test("draw button shows up", async () => {
+  const drawBtn = await driver.findElement(By.id("draw"));
+  expect(drawBtn.isDisplayed).toBeTruthy();
+  await driver.sleep(1000);
+});
 
-// test(" “Removed from Duo”, that it goes back to “choices", async () => {
-//   const title = await driver.findElement(By.id("choices"));
-//   const displayed = await title.isDisplayed();
-//   //   await RemToDuo(driver);
-//   expect(displayed).toBe(true);
-//   await driver.sleep(5000);
-// });
+test("clicking the Draw button displays the div", async () => {
+  const drawBtn = await driver.findElement(By.id("draw"));
+  drawBtn.click();
+  const choices = await driver.findElement(By.id("choices"));
+  expect(choices.isDisplayed).toBeTruthy();
+  await driver.sleep(1000);
+});

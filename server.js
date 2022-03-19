@@ -30,7 +30,7 @@ app.get("/", function (req, res) {
 app.get("/api/robots", (req, res) => {
   try {
     rollbar.info("Hit all robot");
-    res.status(200).send(botsArr);
+    res.status(200).send(bots);
   } catch (error) {
     rollbar.info("Nice Game");
     console.log("ERROR GETTING BOTS", error);
